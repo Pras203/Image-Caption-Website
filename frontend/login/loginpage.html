@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="loginpage.css">
+    <script src="https://kit.fontawesome.com/63944b3091.js" crossorigin="anonymous"></script>
+
+    <style>
+
+        .container{
+
+        width: 100%;
+        height: 100vh;
+        background-image: linear-gradient(#eefff9 0%, #ffccc1 49%,#dcdbff 100%),url(/frontend/bg.png);
+        background-position: center;
+        background-size: cover;
+        position: relative;
+
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="form-box">
+
+            <h1 id="title">Sign Up</h1>
+            <form>
+                <div class="input-group">
+
+                    <div class="input-field" id="nameField">
+
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" placeholder="Username">
+
+                    </div>
+
+                    <div class="input-field">
+
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" placeholder="Email">
+
+                    </div>
+
+                    <div class="input-field">
+
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" placeholder="Password">
+
+                    </div>
+
+                    <div class="input-field" id="confirmPassword">
+
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" placeholder="Confirm Password">
+
+                    </div>
+
+                    <p>Forgot Password? <a href="#">Click Here!</a></p>
+
+                </div>
+
+                <div class="btn-field">
+
+                    <button type="button" id="signupBtn">Sign Up</button>
+                    <button type="button" class="disabled" id="signinBtn">Login</button>
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <script src="loginpage.js"></script>
+    
+</body>
+</html>
