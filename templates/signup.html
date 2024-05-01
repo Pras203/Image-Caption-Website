@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <link rel="stylesheet" href="/static/loginpage.css">
+    <script src="https://kit.fontawesome.com/63944b3091.js" crossorigin="anonymous"></script>
+
+    <style>
+        .container {
+            width: 100%;
+            height: 100vh;
+            background-image: linear-gradient(#eefff9 0%, #ffccc1 49%, #dcdbff 100%), url(/frontend/bg.png);
+            background-position: center;
+            background-size: cover;
+            position: relative;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-box">
+            <h1 id="title">Sign Up</h1>
+            <form action="{{ url_for('signup') }}" method="POST">
+                {{ form.hidden_tag() }}
+                <div class="input-group">
+                    <div class="input-field" id="nameField">
+                        <i class="fa-solid fa-user"></i>
+                        <!-- {{ form.username.label }} -->
+                        {{ form.username(class="form-control", required="required") }}
+                        {% for error in form.username.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="input-field">
+                        <i class="fa-solid fa-envelope"></i>
+                        <!-- {{ form.email.label }} -->
+                        {{ form.email(class="form-control", required="required") }}
+                        {% for error in form.email.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="input-field">
+                        <i class="fa-solid fa-lock"></i>
+                        <!-- {{ form.password.label }} -->
+                        {{ form.password(class="form-control", required="required") }}
+                        {% for error in form.password.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="input-field" id="confirmPassword">
+                        <i class="fa-solid fa-lock"></i>
+                        <!-- {{ form.confirm_password.label }} -->
+                        {{ form.confirm_password(class="form-control", required="required") }}
+                        {% for error in form.confirm_password.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="btn-field">
+                    <button type="submit" class="btn btn-primary" name="signupBtn">{{ form.submit.label }}</button>
+                </div>
+            </form>
+                       
+    
+            <p>Already have an account? <a href="{{ url_for('login') }}">Login Here!</a></p>
+    
+        </div>
+    </div>
+    
+
+    <script>
+
+        let signupBtn = document.getElementById("signupBtn");
+        let nameField = document.getElementById("nameField");
+        let confirmPassword=document.getElementById("confirmPassword");
+        let emailField = document.querySelector('input[type="email"]');
+        let passwordField = document.querySelector('input[type="password"]');
+        let x=1;
+        let x1=0;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            let signupForm = document.querySelector('form');
+
+            signupForm.addEventListener("submit", function (event) {
+                if (!validateSignupForm()) {
+                    event.preventDefault();  // Prevent form submission if validation fails
+                }
+            });
+        });
+        function validateSignupForm(x) {
+        
+            let isValid = true;
+            if(x){
+                let username = nameField.querySelector('input[type="text"]').value.trim();
+                if (username === ""||!/^[a-zA-Z]/.test(username)) {
+                    
+                    alerta("Please enter a username");
+                    isValid = false;
+                }
+            }
+
+        
+            let email = emailField.value.trim();
+            if (email === "" || !isValidEmail(email)) {
+                
+                alerta("Please enter a valid email address");
+                isValid = false;
+            }
+
+            let password = passwordField.value.trim();
+            if (password === ""||!checkPassword(password)) {
+                
+                alerta("Please enter a password");
+                isValid = false;
+            }
+
+            return isValid;
+        }
+        function checkPassword(str)
+        {
+            var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+            return re.test(str);
+        }
+
+        function isValidEmail(email) {
+        
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+        function alerta(message) {
+            // Display the alert after a delay of 1000 milliseconds (1 second)
+            window.alert(message);
+            setTimeout(function () {
+                // Close the alert after 3 seconds
+                document.querySelector(".alert").style.display = "none";
+            }, 30);
+        }
+
+
+        signupBtn.ondblclick=function(){
+            validateSignupForm(x);
+        }
+
+    </script>
+
+</body>
+
+</html>

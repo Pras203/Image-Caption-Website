@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="/static/loginpage.css">
+    <script src="https://kit.fontawesome.com/63944b3091.js" crossorigin="anonymous"></script>
+
+    <style>
+        .container {
+            width: 100%;
+            height: 100vh;
+            background-image: linear-gradient(#eefff9 0%, #ffccc1 49%, #dcdbff 100%), url(/frontend/bg.png);
+            background-position: center;
+            background-size: cover;
+            position: relative;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-box">
+            <h1 id="title">Log In</h1>
+            <form action="{{ url_for('login') }}" method="POST">
+                {{ form.csrf_token }}
+                <div class="input-group">
+                    <div class="input-field">
+                        <i class="fa-solid fa-envelope"></i>
+                        <!-- {{ form.email.label }} -->
+                        {{ form.email(class="form-control", required="required") }}
+                        {% for error in form.email.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="input-field">
+                        <i class="fa-solid fa-lock"></i>
+                        <!-- {{ form.password.label }} -->
+                        {{ form.password(class="form-control", required="required") }}
+                        {% for error in form.password.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="btn-field">
+                    <button type="submit" class="btn btn-primary" name="signinBtn">{{ form.submit.label }}</button>
+                </div>
+            </form>            
+    
+            <p>Don't have an account? <a href="{{ url_for('signup') }}">Sign Up Here!</a></p>
+    
+        </div>
+    </div>    
+    <script>
+        let signinBtn = document.getElementById("signinBtn");
+        let emailField = document.querySelector('input[type="email"]');
+        let passwordField = document.querySelector('input[type="password"]');
+        let x = 1;
+        let x1 = 0;
+    
+        function validateSignupForm(x) {
+            let isValid = true;
+    
+            if (x) {
+                let nameField = document.querySelector('input[type="text"]');
+                let username = nameField.value.trim();
+                if (username === "" || !/^[a-zA-Z]/.test(username)) {
+                    alerta("Please enter a username");
+                    isValid = false;
+                }
+            }
+    
+            let email = emailField.value.trim();
+            if (email === "" || !isValidEmail(email)) {
+                alerta("Please enter a valid email address");
+                isValid = false;
+            }
+    
+            let password = passwordField.value.trim();
+            if (password === "" || !checkPassword(password)) {
+                alerta("Please enter a valid password");
+                isValid = false;
+            }
+    
+            return isValid;
+        }
+    
+        function checkPassword(str) {
+            var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+            return re.test(str);
+        }
+    
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+    
+        function alerta(message) {
+            // Display the alert after a delay of 1000 milliseconds (1 second)
+            window.alert(message);
+            setTimeout(function () {
+                // Close the alert after 3 seconds
+                document.querySelector(".alert").style.display = "none";
+            }, 3000);
+        }
+    
+        signinBtn.ondblclick = function () {
+            validateSignupForm(x1);
+        }
+    </script>
+    
+</body>
+
+</html>

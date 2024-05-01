@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nav page</title>
+    <link rel="stylesheet" href="/static/nav.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <nav>
+        <a href="{{ url_for('about') }}"><img src="/static/logo (2).png" alt="" class="logo"></a>
+    
+        <ul id="menu-links">
+            <li><a href="{{ url_for('caption') }}">Image Caption Generator</a></li>
+            <li>History</li>
+            <li><a href="{{ url_for('team') }}">Our Team</a></li>
+            <li><a href="{{ url_for('login') }}">Log In</a></li>
+        </ul>
+    
+        <button class="nav-btn"><a href="{{ url_for('signup') }}">Get Started</a></button>
+        <img src="/static/images/menu.png" alt="" class="menu-icon" onclick="toggleMenu()">
+    </nav>
+    
+
+    <div class="header">
+
+        <div class="header-content">
+
+            <h1><span>CAPTION</span><br><span>CANVAS</span></h1>
+
+            <div class="btn-container">
+
+                <button class="btn-dark"><a href={{ url_for('signup') }}>Get started for free</a></button>
+
+            </div>
+
+            <p>Welcome to our cutting-edge image captioning platform, where visuals come to life with words.</p>
+
+        </div>
+
+        <img src="/static/pngegg.png" alt="" class="user-img">
+
+    </div>
+
+    <script>
+
+        let navbar = document.querySelector("nav");
+        let menuLinks = document.getElementById("menu-links");
+
+        function toggleMenu() {
+            menuLinks.classList.toggle("show-menu");
+        }
+
+        window.onscroll = function () {
+            if (window.scrollY > 0) {
+                navbar.style.background = '#eefff9';
+            } else {
+                navbar.style.background = 'transparent';
+            }
+        }
+
+    </script>
+
+</body>
+</html>

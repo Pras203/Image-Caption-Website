@@ -15,8 +15,7 @@ signinBtn.onclick=function(){
     title.innerHTML="Log In";
     signupBtn.classList.add("disabled");
     signinBtn.classList.remove("disabled");
-    emailField.value = "";
-    passwordField.value = "";
+
 }
 signinBtn.ondblclick=function(){
     validateSignupForm(x1);
@@ -28,8 +27,7 @@ signupBtn.onclick = function () {
     title.innerHTML = "Sign Up";
     signupBtn.classList.remove("disabled");
     signinBtn.classList.add("disabled");
-    emailField.value = "";
-    passwordField.value = "";
+
     
 };
 
@@ -46,7 +44,7 @@ function validateSignupForm(x) {
         alerta("Please enter a username");
         isValid = false;
     }
-}
+    }
 
  
     let email = emailField.value.trim();

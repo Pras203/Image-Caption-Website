@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Caption Generator</title>
+    <link rel="stylesheet" href="/static/caption.css">
+    <script src="https://kit.fontawesome.com/63944b3091.js" crossorigin="anonymous"></script>
+    <script>
+        let navbar = document.querySelector("nav");
+        let menuLinks = document.getElementById("menu-links");
+
+        function toggleMenu() {
+            menuLinks.classList.toggle("show-menu");
+        }
+
+        window.onscroll = function () {
+            if (window.scrollY > 0) {
+                navbar.style.background = '#eefff9';
+            } else {
+                navbar.style.background = 'transparent';
+            }
+        }
+
+        let generateBtn = document.getElementById("generateBtn");
+        let urlField = document.getElementById("urlField");
+        let title = document.getElementById("title");
+
+        generateBtn.onclick = function(){
+            alert("Generating captions for " + urlField.value);
+        }
+
+        generateBtn.onclick = function(){
+            let imageUrl = urlField.querySelector("input").value;
+            // Send AJAX request to server
+            fetch("/generate_caption", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({image_url: imageUrl})
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.predictions); // Print predictions in console
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="form-box">
+
+            <h1 id="title">Caption Generator</h1>
+            <form action="{{ url_for('generate_caption') }}" method="POST">
+                <div class="input-group">
+
+                    <div class="input-field" id="urlField">
+
+                        <i class="fa-solid fa-link"></i>
+                        <input type="text" placeholder="Enter URL">
+
+                    </div>
+
+                </div>
+
+                <div class="btn-field">
+
+                    <button type="button" id="generateBtn"  ><a href="/templates/display.html" style="color: white; text-decoration: none; ">Generate Captions</a></button>     
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+    
+</body>
+</html>
